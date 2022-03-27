@@ -33,3 +33,9 @@ CREATE TABLE `sessions`(
     `TTL` text,
     `loginname` text
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- 删除音频表
+CREATE TABLE `video_del_rec`(
+    `video_id` varchar(64) PRIMARY KEY
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
