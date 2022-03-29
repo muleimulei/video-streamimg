@@ -37,7 +37,8 @@ func GenerateNewSessionId(un string) string {
 
 	ss := &defs.SimpleSession{Username: un, TTL: ttl}
 
-	sessionMap.Store(id, ss)
+	sessionMap.Store(id.String(), ss)
+
 	dbops.InsertSession(id.String(), ttl, un)
 	return id.String()
 }
@@ -46,7 +47,8 @@ func IsSessionExpired(sid string) (string, bool) {
 	ss, ok := sessionMap.Load(sid)
 	if ok {
 		now := time.Now().UnixMilli()
-		if session := ss.(*defs.SimpleSession); session.TTL < now {
+
+		if session := ss.(*defs.SimpleSession); session.TTL < now { //过期
 			dbops.DeleteSessionById(sid)
 			sessionMap.Delete(sid)
 			return "", true

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 引入 layui.css -->
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>YOURS VIDEO</title>
+
+  
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://fastly.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://fastly.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <style>
+    #signup, #signin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 400px;
+      height: 300px;
+      transform: translate(-50%, -80%);
+    }
+
+    #signup {
+      display: none;
+    }
+    button.btn{
+      width: 100%;
+    }
+  </style>
+  <body>
+    
+  <div id="signup">
+      <h1 style="text-align: center;">{{.Name}}!</h1>
+      <p id="bg-warning1" style="text-align: center;" class="bg-danger text-warning"></p>
+    <form  method="post" id="signupsubmit" action="/userhome">
+      <div class="form-group">
+        <label for="exampleInputEmail1">用户名</label>
+        <input type="name" class="form-control" id="username1" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <label for="exampleInputPassword1">密码</label>
+        <input type="password" class="form-control" id="Password1" placeholder="Password">
+      </div>
+      <button type="button" class="btn btn-info" id="signupbtn">注册</button>
+      <p class="text-warning">Already have an account ? <a href="#" id="signinhref"> Sign in</a></p>
+    </form>
+  </div>
+
+  <div id="signin">
+  <h1 style="text-align: center;">{{.Name}}!</h1>
+  <p id="bg-warning2" style="text-align: center;" class="bg-danger text-warning"></p>
+  <form method="post" id="signinsubmit" action="/userhome">
+    <div class="form-group">
+      <label for="exampleInputEmail">用户名</label>
+      <input type="name" class="form-control" id="username2" placeholder="Name">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword">密码</label>
+      <input type="password" class="form-control" id="Password2" placeholder="Password">
+    </div>
+    <button type="button" class="btn btn-info" id="signinbtn">登录</button>
+    <p class="text-warning">Doesn't have an account ? <a href="#" id="signuphref"> Sign up</a></p>
+  </form>
+</div>
+
+  </body>
+   <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+   <!-- <script src="https://fastly.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script> -->
+   <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+   <script src="static/scripts/home.js"></script>
+  
+</html>

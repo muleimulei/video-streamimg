@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .topnav a.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .topic-back {
+            text-align: center;
+            background-color: #F1F1F1;
+        }
+        #main-back {
+            background-color: #F1F1F1;
+        }
+        #title {
+            font-size: 60px;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        /* Add padding to containers */
+        .container {
+            padding: 16px;
+            background-color: white;
+        }
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0 22px 0;
+            display: inline-block;
+            border: none;
+            background: #f1f1f1;
+        }
+        input[type=text]:focus, input[type=password]:focus {
+            background-color: #ddd;
+            outline: none;
+        }
+        /* Overwrite default styles of hr */
+        hr {
+            border: 1px solid #f1f1f1;
+            margin-bottom: 25px;
+        }
+        /* Set a style for the submit button */
+        .registerbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+            font-size: 20px;
+        }
+        .registerbtn:hover {
+            opacity: 1;
+        }
+        /* Add a blue text color to links */
+        a {
+            color: dodgerblue;
+        }
+        /* Set a grey background color and center the text of the "sign in" section */
+        .signin {
+            background-color: #f1f1f1;
+            text-align: center;
+        }
+        .video-thumbnail-list {
+            padding-left: 50px;
+        }
+
+        .whole {
+            padding-left: 100px;
+        }
+
+        #comments {
+            padding-top: 20px;
+        }
+
+        .comment-author {
+            font-size: 12px;
+            color: grey;
+        }
+
+        .comment-ctime {
+            font-size: 12px;
+            color: gray;
+        }
+        .comment {
+            font-size: 15px;
+            color: black;
+        }
+        #comments-total {
+            font-size: 18px;
+            color: black;
+            line-height: 3;
+        }
+        #curr-video-name {
+            font-size: 18px;
+            padding-top: 10px;
+            line-height: 20px;
+        }
+        #curr-video-ctime {
+            font-size: 10px;
+            color: gray;
+        }
+
+        #snackbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 16px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+
+        #snackbar.show{
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        #errorbar {
+            visibility: hidden;
+            min-width: 250px;
+            margin-left: -125px;
+            background-color: red;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 10px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            font-size: 17px;
+        }
+
+        #errorbar.show {
+            visibility: visible;
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+    </style>
+     <!-- 引入 layui.css -->
+      <!-- Bootstrap -->
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>YOURS VIDEO</title>
+
+  
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://fastly.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+      <script src="https://fastly.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body id="main-back">
+
+<div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#news">{{.Name}}</a>
+    <a href="#about">About</a>
+    <a href="#myModal" id="upload" data-toggle="modal">Upload</a>
+    <a id="logout" href="/">Logout</a>
+</div>
+
+<div class="topic-back" style="padding-left: 16px">
+    <h2 id="title">YOURS VIDEO</h2>
+</div>
+
+<div class="whole">
+    <div id="play-box">
+        <video id="curr-video" width="640" height="400" controls preload="auto" border="5"></video>
+        <div id="curr-video-name"></div>
+        <div id="curr-video-ctime"></div>
+        <div id="snackbar">Comment submission succeeded</div>
+        <div id="errorbar">Error happened</div>
+        <div id="comments">
+            <textarea id="comments-input" name="mesage" rows="5" cols="90"\
+            placeholder="Input your comment"></textarea>
+            <input id="submit-comment" type="submit">
+            <hr size="1" style="border-color: #EDE3E1;">
+            <div id="comments-total">0 Comments</div>
+            <div id="comments-history"></div>
+        </div>
+    </div>
+
+    <div id="items" class="video-thumbnail-list"></div>
+</div>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">上传文件</h4>
+        </div>
+        <p id="bg-warning3" style="text-align: center;" class="bg-danger text-warning"></p>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="InputFile">选择文件</label>
+                <input type="file" id="InputFile" name="file">
+            </div>
+            <div class="form-group">
+                <label for="InputFilename">文件名称</label>
+                <input type="text" class="form-control" id="InputFilename" placeholder="文件名称">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" id="uploadfile" class="btn btn-primary">上传文件</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+ <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+ <!-- <script src="https://fastly.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script> -->
+ <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+ <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+ <script src="static/scripts/userhome.js"></script>
+
+</body>
+</html>

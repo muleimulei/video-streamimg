@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 	"video_server/api/defs"
 	"video_server/api/session"
@@ -17,6 +18,7 @@ func validateUserSession(r *http.Request) bool {
 
 	uname, ok := session.IsSessionExpired(sid)
 	if ok {
+		fmt.Println("session过期")
 		return false
 	}
 	r.Header.Add(HEADER_FIELD_UNAME, uname)

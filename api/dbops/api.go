@@ -192,3 +192,55 @@ func ListComments(vid string, from, to int64) ([]*defs.Comment, error) {
 	}
 	return res, nil
 }
+
+func GetUser(uname string) (int, error) {
+	stmt, err := db.Prepare("SELECT id FROM users where login_name = ?")
+	if err != nil {
+		return -1, err
+	}
+	defer stmt.Close()
+
+	var uid int
+	err = stmt.QueryRow(uname).Scan(&uid)
+	if err != nil {
+		return -1, err
+	}
+	return uid, nil
+}
+
+func ListAllVideos(uname string, from, to int64) ([]*defs.VideoInfo, error) {
+	stmt, err := db.Prepare(`SELECT videoinfo.id, videoinfo.authorid, videoinfo.name, videoinfo.display_ctime FROM videoinfo
+		INNER JOIN users on videoinfo.authorid = users.id WHERE users.login_name = ?`)
+
+	if err != nil {
+		log.Println("ListAllVideos error , ", err)
+		return nil, err
+	}
+
+	defer stmt.Close()
+	var res []*defs.VideoInfo
+
+	rows, err := stmt.Query(uname)
+	if err != nil {
+		log.Println("ListAllVideos error , ", err)
+		return nil, err
+	}
+
+	for rows.Next() {
+		var id, name, ctime string
+		var aid int
+
+		if err := rows.Scan(&id, &aid, name, &ctime); err != nil {
+			return res, err
+		}
+
+		vi := &defs.VideoInfo{
+			Id:           id,
+			AuthorId:     aid,
+			Name:         name,
+			DisplayCtime: ctime,
+		}
+		res = append(res, vi)
+	}
+	return res, nil
+}
