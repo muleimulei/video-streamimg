@@ -1,4 +1,4 @@
-package streamserver
+package main
 
 const (
 	VIDEO_DIR       = "f:/video_dir/"

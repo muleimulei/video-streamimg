@@ -1,4 +1,4 @@
-package streamserver
+package main
 
 import (
 	"io"
@@ -47,7 +47,8 @@ func uploadHandler(w http.ResponseWriter, r *http.Request, p httprouter.Params) 
 		return
 	}
 
-	fn := p.ByName("vid_id")
+	fn := p.ByName("vid-id")
+	log.Println("video id :", fn)
 	err = ioutil.WriteFile(VIDEO_DIR+"/"+fn, data, 0644)
 	if err != nil {
 		log.Println("Write file error : ", err)

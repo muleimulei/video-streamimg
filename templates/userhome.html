@@ -90,6 +90,9 @@
         .video-thumbnail-list {
             padding-left: 50px;
         }
+        .video-item{
+            text-align: center;
+        }
 
         .whole {
             padding-left: 100px;
@@ -191,23 +194,24 @@
     <a class="active" href="#home">Home</a>
     <a href="#news">{{.Name}}</a>
     <a href="#about">About</a>
-    <a href="#myModal" id="upload" data-toggle="modal">Upload</a>
+    <a href="#myModal" id="upload">Upload</a>
     <a id="logout" href="/">Logout</a>
 </div>
+
 
 <div class="topic-back" style="padding-left: 16px">
     <h2 id="title">YOURS VIDEO</h2>
 </div>
 
-<div class="whole">
-    <div id="play-box">
+<div class="whole row" >
+    <div id="play-box" class="col-md-7">
         <video id="curr-video" width="640" height="400" controls preload="auto" border="5"></video>
         <div id="curr-video-name"></div>
         <div id="curr-video-ctime"></div>
-        <div id="snackbar">Comment submission succeeded</div>
-        <div id="errorbar">Error happened</div>
+        <div id="snackbar"></div>
+        <div id="errorbar"></div>
         <div id="comments">
-            <textarea id="comments-input" name="mesage" rows="5" cols="90"\
+            <textarea id="comments-input" name="mesage" rows="3" class="form-control"\
             placeholder="Input your comment"></textarea>
             <input id="submit-comment" type="submit">
             <hr size="1" style="border-color: #EDE3E1;">
@@ -216,7 +220,9 @@
         </div>
     </div>
 
-    <div id="items" class="video-thumbnail-list"></div>
+    <div id="items" class="video-thumbnail-list col-md-4">
+
+    </div>
 </div>
 
   
@@ -230,17 +236,17 @@
         </div>
         <p id="bg-warning3" style="text-align: center;" class="bg-danger text-warning"></p>
         <div class="modal-body">
-            <div class="form-group">
+            <form class="form-group" id="uploadform" action="#" method="post" enctype="multipart/form-data">
                 <label for="InputFile">选择文件</label>
-                <input type="file" id="InputFile" name="file">
-            </div>
+                <input type="file" name="file" >
+            </form>
             <div class="form-group">
                 <label for="InputFilename">文件名称</label>
                 <input type="text" class="form-control" id="InputFilename" placeholder="文件名称">
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" id="uploadfile" class="btn btn-primary">上传文件</button>
+            <button type="button" id="uploadfile" class="btn btn-primary">上传文件</button>
         </div>
       </div>
     </div>
@@ -248,6 +254,13 @@
 
  <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+ <script>
+    $('#upload').on('click', function(){
+        $('#myModal').modal({
+            backdrop: 'static',
+        })
+    })
+</script>
  <!-- <script src="https://fastly.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script> -->
  <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>

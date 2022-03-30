@@ -161,9 +161,10 @@ func AddNewComments(vid string, aid int, content string) error {
 	return nil
 }
 
+// // where comments.videoid = ? AND comments.time > FROM_UNIXTIME(?) AND comments.time <= FROM_UNIXTIME(?)
 func ListComments(vid string, from, to int64) ([]*defs.Comment, error) {
 	stmt, err := db.Prepare(`SELECT comments.id, users.login_name, comments.content FROM comments INNER JOIN users
-	ON comments.authorid = users.id where comments.videoid = ? AND comments.time > FROM_UNIXTIME(?) AND comments.time <= FROM_UNIXTIME(?)`) // (]
+	ON comments.authorid = users.id  where comments.videoid = ? order by time desc`)
 
 	if err != nil {
 		return nil, err
@@ -172,7 +173,7 @@ func ListComments(vid string, from, to int64) ([]*defs.Comment, error) {
 
 	var res []*defs.Comment
 
-	rows, err := stmt.Query(vid, from, to)
+	rows, err := stmt.Query(vid)
 	if err != nil {
 		return nil, err
 	}
@@ -190,6 +191,7 @@ func ListComments(vid string, from, to int64) ([]*defs.Comment, error) {
 		}
 		res = append(res, c)
 	}
+	log.Println(vid, " ", res)
 	return res, nil
 }
 
@@ -230,7 +232,7 @@ func ListAllVideos(uname string, from, to int64) ([]*defs.VideoInfo, error) {
 		var id, name, ctime string
 		var aid int
 
-		if err := rows.Scan(&id, &aid, name, &ctime); err != nil {
+		if err := rows.Scan(&id, &aid, &name, &ctime); err != nil {
 			return res, err
 		}
 

@@ -1,4 +1,4 @@
-package streamserver
+package main
 
 import (
 	"net/http"
